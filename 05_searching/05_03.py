@@ -68,9 +68,10 @@ def get_shortest_path():
             if path_map[next_tile_y][next_tile_x] > -1:
                 continue
 
-            # 다음 위치까지의 최단 거리를 확인 처리하고, 다음 탐색 대상 큐에 등록합니다.
-            path_map[next_tile_y][next_tile_x] = current_len + 1
-            queue.append((next_tile_y, next_tile_x))
+            # 아직 확인되지 않은 위치이고, 갈 수 있는 곳일 경우, 다음 위치까지의 최단 거리를 확인 처리하고, 다음 탐색 대상 큐에 등록합니다.
+            if GAME_MAP[next_tile_y][next_tile_x] > 0:
+                path_map[next_tile_y][next_tile_x] = current_len + 1
+                queue.append((next_tile_y, next_tile_x))
 
     # 맵의 (n, m) 위치까지의 최단 경로 걸음 수를 반환합니다.
     return path_map[-1][-1]
