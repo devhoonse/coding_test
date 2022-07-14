@@ -4,15 +4,19 @@ from collections import defaultdict, deque
 
 
 # CONSTANTS
-EDGES_01 = [
-    (1, 2),     # (출발지, 도착지)
-    (1, 5),
-    (2, 3),
-    (2, 6),
+NODES_01 = [    # 각 강의별 강의 수강 차시 수
+    10,         # 1 번 강의 수강 차시 수
+    10,         # 2 번 강의 수강 차시 수
+    4,          # 3 번 강의 수강 차시 수
+    4,          # 4 번 강의 수강 차시 수
+    3           # 5 번 강의 수강 차시 수
+]
+EDGES_01 = [    # 선수 과목 목록
+    (1, 2),     # (선수 과목, 수강 과목)
+    (1, 3),
+    (1, 4),
     (3, 4),
-    (4, 7),
-    (5, 6),
-    (6, 4)
+    (3, 5)
 ]
 
 
@@ -20,9 +24,6 @@ def get_reachable_nodes(edges):
     """
     네트워크 내 간선 목록을 받아서
     { 출발지 : [도착지 1, 도착지 2, ... ] } 형태의 딕셔너리로 정리합니다.
-
-    >>> get_reachable_nodes(EDGES_01)
-    {1: [2, 5], 2: [3, 6], 3: [4], 4: [7], 5: [6], 6: [4]}
 
     :param edges: 네트워크 내 간선 목록
     :type edges: List[Tuple[int, int]]
@@ -38,16 +39,13 @@ def get_reachable_nodes(edges):
         result[start].append(end)       # 출발점 노드에서 갈 수 있는 노드 목록에 도착점 노드를 추가합니다.
 
     # 정리 결과를 반환합니다.
-    return dict(result)
+    return result
 
 
 def get_all_nodes(edges):
     """
     네트워크 내 간선 목록을 받아서
     네트워크 내에 포함된 모든 노드 목록을 반환합니다.
-
-    >>> get_all_nodes(EDGES_01)
-    {1, 2, 3, 4, 5, 6, 7}
 
     :param edges: 네트워크 내 간선 목록
     :type edges: List[Tuple[int, int]]
@@ -67,9 +65,6 @@ def count_number_of_enters(edges):
     """
     네트워크 내 간선 목록을 받아서
     각 노드들을 도착점으로 하는 간선 갯수를 집계합니다.
-
-    >>> count_number_of_enters(EDGES_01)
-    [0, 0, 1, 1, 2, 1, 2, 1]
 
     :param edges: 네트워크 내 간선 목록
     :type edges: List[Tuple[int, int]]
@@ -95,6 +90,8 @@ def count_number_of_enters(edges):
 
 def sort_by_topology(edges):
     """
+    [유형 : 그래프 이론 - 위상 정렬]
+    fixme: 못 풀었음 ...
     주어진 네트워크 간선 목록에 대해 위상 정렬을 수행하여
     루트 노드부터 연결 순서대로 차례로 정렬합니다.
 
